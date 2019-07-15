@@ -18,7 +18,13 @@ public class MySort {
 
 
     public static void main(String[] args) {
-        int[] intArray = {1,6,4,59,6,10};
+        int[] intArray = {1,6,4,59,6,-2};
+        Map<String, Integer> subArrayMap = maxSubArray(intArray);
+        Iterator<Map.Entry<String, Integer>> iterator = subArrayMap.entrySet().iterator();
+        while(iterator.hasNext()){
+            Map.Entry<String, Integer> entry = iterator.next();
+            System.out.println(entry.getKey() + ":" + entry.getValue());
+        }
         //bubbleSort(intArray);
         //selectSort(intArray);
         //insertSort(intArray);
@@ -95,10 +101,11 @@ public class MySort {
         int temp;
 
         for (int i = 1; i < intArray.length; i++) {
-            temp = intArray[i];
+
             for (j = 0 /*, minIndex = -1*/; j < i; j++) {
                 if (intArray[i] < intArray[j] ) {
                     /*minIndex++;*/
+                    temp = intArray[i];
                     intArray[i] = intArray[j];
                     intArray[j] = temp;
                 }
@@ -370,5 +377,33 @@ public class MySort {
             a(h * 3 + 1);
 
         }
+    }
+
+
+    //连续最大的子串
+    public static Map<String ,Integer> maxSubArray(int[] ints) {
+
+        int maxNum = 0;
+        int currentMaxNum = 0;
+        int startIndex = -1 ;
+        int endIndex  = -1;
+
+        for (int i = 0; i < ints.length; i++) {
+            currentMaxNum = 0;
+            for (int j = i; j < ints.length; j++) {
+                currentMaxNum += ints[j];
+                if(currentMaxNum > maxNum){
+                    maxNum = currentMaxNum;
+                    startIndex = i;
+                    endIndex = j;
+                }
+            }
+
+        }
+        Map<String ,Integer> map = new HashMap();
+        map.put("startIndex", startIndex);
+        map.put("endIndex", endIndex);
+        map.put("maxNum", maxNum);
+        return map;
     }
 }

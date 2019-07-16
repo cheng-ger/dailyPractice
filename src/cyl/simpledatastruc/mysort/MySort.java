@@ -18,6 +18,8 @@ public class MySort {
 
 
     public static void main(String[] args) {
+        Stack stack = new Stack();
+
         int[] intArray = {1,6,4,59,6,-2};
         Map<String, Integer> subArrayMap = maxSubArray(intArray);
         Iterator<Map.Entry<String, Integer>> iterator = subArrayMap.entrySet().iterator();
